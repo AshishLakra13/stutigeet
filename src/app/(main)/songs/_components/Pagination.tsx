@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -16,6 +16,13 @@ type Props = {
 
 export function Pagination({ page, totalPages, q, lang, tag }: Props) {
   const router = useRouter();
+
+  const previousPageRef = useRef(page);
+  useEffect(() => {
+    if (previousPageRef.current === page) return;
+    previousPageRef.current = page;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [page]);
 
   function buildHref(target: number): string {
     const params = new URLSearchParams();

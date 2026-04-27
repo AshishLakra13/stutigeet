@@ -42,3 +42,31 @@ export async function getSongCount(): Promise<number> {
   if (error) throw new Error(`Failed to count songs: ${error.message}`);
   return count ?? 0;
 }
+
+// Distinct values for the /songs library filter chips. RLS already
+// hides unverified rows, so anon users see only the public set.
+export async function getDistinctLanguages(): Promise<string[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.from('songs').select('language');
+  if (error) throw new Error(`getDistinctLanguages: ${error.message}`);
+  const seen = new Set<string>();
+  for (const row of data ?? []) {
+    for (const value of (row.language as string[] | null) ?? []) {
+      if (value) seen.add(value);
+    }
+  }
+  return Array.from(seen).sort();
+}
+
+export async function getDistinctThemes(): Promise<string[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.from('songs').select('themes');
+  if (error) throw new Error(`getDistinctThemes: ${error.message}`);
+  const seen = new Set<string>();
+  for (const row of data ?? []) {
+    for (const value of (row.themes as string[] | null) ?? []) {
+      if (value) seen.add(value);
+    }
+  }
+  return Array.from(seen).sort();
+}

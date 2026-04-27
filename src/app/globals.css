@@ -49,72 +49,81 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
+  /* ── Vespers palette — light ("Lauds") ────────────────────── */
+  --background:         oklch(0.985 0.012 85);   /* parchment */
+  --card:               oklch(0.97  0.012 85);   /* vellum */
+  --card-foreground:    oklch(0.22  0.015 265);
+  --popover:            oklch(0.97  0.012 85);
+  --popover-foreground: oklch(0.22  0.015 265);
+  --foreground:         oklch(0.22  0.015 265);  /* ink */
+  --primary:            oklch(0.22  0.015 265);  /* ink */
+  --primary-foreground: oklch(0.985 0.012 85);
+  --secondary:          oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
+  --muted:              oklch(0.97 0 0);
+  --muted-foreground:   oklch(0.55  0.01  270);  /* whisper */
+  --accent:             oklch(0.74  0.13  75);   /* gilt */
+  --accent-foreground:  oklch(0.22  0.015 265);
+  --destructive:        oklch(0.577 0.245 27.325);
+  --border:             oklch(0.22 0.015 265 / 0.10);
+  --input:              oklch(0.922 0 0);
+  --ring:               oklch(0.22  0.015 265);
+  --chart-1:            oklch(0.87 0 0);
+  --chart-2:            oklch(0.556 0 0);
+  --chart-3:            oklch(0.439 0 0);
+  --chart-4:            oklch(0.371 0 0);
+  --chart-5:            oklch(0.269 0 0);
+  --radius:             0.625rem;
+  --sidebar:            oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary:    oklch(0.205 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent:     oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar-border:     oklch(0.922 0 0);
+  --sidebar-ring:       oklch(0.708 0 0);
+
+  /* ── Breath spacing scale ─────────────────────────────────── */
+  --breath-inhale:  0.5rem;
+  --breath-pause:   1rem;
+  --breath-phrase:  2rem;
+  --breath-section: 4rem;
+  --breath-page:    8rem;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
+  /* ── Vespers palette — dark ("Compline") ─────────────────── */
+  --background:         oklch(0.16  0.025 265);
+  --card:               oklch(0.20  0.025 265);
+  --card-foreground:    oklch(0.96  0.008 85);
+  --popover:            oklch(0.20  0.025 265);
+  --popover-foreground: oklch(0.96  0.008 85);
+  --foreground:         oklch(0.96  0.008 85);
+  --primary:            oklch(0.96  0.008 85);
+  --primary-foreground: oklch(0.16  0.025 265);
+  --secondary:          oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
+  --muted:              oklch(0.269 0 0);
+  --muted-foreground:   oklch(0.65  0.012 270);
+  --accent:             oklch(0.78  0.13  75);
+  --accent-foreground:  oklch(0.16  0.025 265);
+  --destructive:        oklch(0.704 0.191 22.216);
+  --border:             oklch(0.96 0.008 85 / 0.10);
+  --input:              oklch(1 0 0 / 15%);
+  --ring:               oklch(0.96  0.008 85);
+  --chart-1:            oklch(0.87 0 0);
+  --chart-2:            oklch(0.556 0 0);
+  --chart-3:            oklch(0.439 0 0);
+  --chart-4:            oklch(0.371 0 0);
+  --chart-5:            oklch(0.269 0 0);
+  --sidebar:            oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary:    oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent:     oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar-border:     oklch(1 0 0 / 10%);
+  --sidebar-ring:       oklch(0.556 0 0);
 }
 
 @layer base {
@@ -137,6 +146,11 @@
 }
 
 @layer components {
+  /* ─── Old-style numerals ────────────────────────────────── */
+  .numerals-old {
+    font-variant-numeric: oldstyle-nums;
+  }
+
   /* ─── Chord Sheet ────────────────────────────────────────── */
   .chord-sheet {
     font-family: var(--font-crimson), serif;
@@ -147,6 +161,8 @@
   @media (min-width: 768px) {
     .chord-sheet {
       font-size: 1.5rem;
+      max-width: 680px;
+      margin-inline: auto;
     }
   }
 
@@ -165,15 +181,11 @@
   .chord-sheet .chord {
     font-family: ui-monospace, 'JetBrains Mono', monospace;
     font-size: 0.8125rem;
-    color: oklch(0.65 0.12 240);
+    color: var(--accent);
     font-weight: 500;
     min-height: 1.25rem;
     line-height: 1.25;
     white-space: nowrap;
-  }
-
-  .dark .chord-sheet .chord {
-    color: oklch(0.72 0.1 240);
   }
 
   .chord-sheet .lyrics {
@@ -182,24 +194,37 @@
   }
 
   .chord-sheet .paragraph {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--breath-phrase);
   }
 
-  /* Chorus: left accent border */
+  /* Chorus: thin gilt left rule */
   .chord-sheet .paragraph.chorus {
-    border-left: 3px solid var(--primary);
-    padding-left: 1rem;
+    border-left: 1px solid var(--accent);
+    padding-left: 1.25rem;
   }
 
   /* Section labels (verse, chorus, bridge) */
   .chord-sheet .paragraph-label,
   .chord-sheet .comment {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--muted-foreground);
+    color: var(--accent);
     margin-bottom: 0.5rem;
     font-family: var(--font-inter), sans-serif;
+  }
+
+  .chord-sheet .paragraph-label::after,
+  .chord-sheet .comment::after {
+    content: '';
+    display: block;
+    width: 1rem;
+    height: 1px;
+    background: var(--accent);
+    flex-shrink: 0;
   }
 
   /* Hide ChordSheetJS-generated title/subtitle — we render our own SongHeader */
@@ -213,16 +238,97 @@
   :lang(hi) .chord-sheet .row {
     row-gap: 0.5rem;
   }
-
-  /* ─── Stage Mode ────────────────────────────────────────── */
-  /* Applied via JS: document.body.classList.add('stage-mode') */
 }
 
-/* Stage mode — outside @layer components so specificity beats nav rules */
+/* ── Song library card lift ─────────────────────────────── */
+.song-card-lift {
+  transition:
+    transform 200ms cubic-bezier(0.32, 0.72, 0, 1),
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+.song-card-lift:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in oklch, var(--accent) 40%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .song-card-lift {
+    transition: none;
+  }
+  .song-card-lift:hover {
+    transform: none;
+  }
+}
+
+/* ── BrandMark draw-on animation ─────────────────────────── */
+@keyframes brand-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes brand-bindu-appear {
+  to { opacity: 1; }
+}
+
+.brand-mark-animate .brand-vertical {
+  stroke-dasharray: 25;
+  stroke-dashoffset: 25;
+  animation: brand-draw 600ms cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+.brand-mark-animate .brand-h1 {
+  stroke-dasharray: 14;
+  stroke-dashoffset: 14;
+  animation: brand-draw 200ms cubic-bezier(0.32, 0.72, 0, 1) 600ms forwards;
+}
+.brand-mark-animate .brand-h2 {
+  stroke-dasharray: 10;
+  stroke-dashoffset: 10;
+  animation: brand-draw 200ms cubic-bezier(0.32, 0.72, 0, 1) 800ms forwards;
+}
+.brand-mark-animate .brand-bindu {
+  opacity: 0;
+  animation: brand-bindu-appear 200ms ease-out 1000ms forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-mark-animate .brand-vertical,
+  .brand-mark-animate .brand-h1,
+  .brand-mark-animate .brand-h2 {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .brand-mark-animate .brand-bindu {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* ── Chord pulse animation ────────────────────────────────── */
+@keyframes chord-pulse {
+  0%   { color: var(--accent); }
+  40%  { color: var(--foreground); }
+  100% { color: var(--accent); }
+}
+
+.chord-pulse {
+  animation: chord-pulse 600ms ease-out forwards;
+}
+
+/* ── Stage-fade utility ───────────────────────────────────── */
+.stage-fade {
+  transition: opacity 220ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Stage mode — outside @layer so specificity beats nav rules */
+body.stage-mode {
+  background: oklch(0.08 0 0);
+}
+
 body.stage-mode nav,
-body.stage-mode header,
-body.stage-mode [data-no-print] {
+body.stage-mode header {
   display: none !important;
+}
+
+body.stage-mode .stage-fade {
+  opacity: 0.05;
 }
 
 body.stage-mode .chord-sheet {
@@ -238,15 +344,6 @@ body.stage-mode .chord-sheet {
 
 body.stage-mode .chord-sheet .chord {
   font-size: 1rem;
-}
-
-/* Exit stage-mode button: always visible, fixed top-right */
-body.stage-mode [data-stage-exit] {
-  display: flex !important;
-}
-
-[data-stage-exit] {
-  display: none;
 }
 
 @layer components {

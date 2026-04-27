@@ -2,13 +2,13 @@
 
 import { useState, Suspense } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import { Minus, Plus, RotateCcw, Tv2, X, PlayCircle, PauseCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { RotateCcw, PlayCircle, PauseCircle } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { nextKey } from '@/lib/chordpro';
 import { cn } from '@/lib/utils';
 import { StageMode, useStageMode } from '@/components/StageMode';
 import { AutoScroll } from '@/components/AutoScroll';
+import { BrandMark } from '@/components/BrandMark';
 
 type SongToolbarProps = {
   originalKey: string | null;
@@ -52,99 +52,42 @@ function SongToolbarInner({ originalKey }: SongToolbarProps) {
       <StageMode />
       <AutoScroll enabled={autoScrollOn} speed={scrollSpeed} />
 
-      {/* Stage-mode exit button (visible only when stage-mode CSS class is active) */}
+      {/* Stage toggle — BrandMark in gilt, fixed top-right */}
       <button
-        data-stage-exit
         onClick={toggleStage}
         className={cn(
           'fixed top-4 right-4 z-[100]',
-          'flex items-center gap-1.5 rounded-full',
-          'bg-background/90 backdrop-blur px-3 py-2 text-xs font-medium',
-          'border border-border shadow-md',
-          'hover:bg-accent transition-colors',
+          'transition-opacity duration-[220ms]',
+          isStage ? 'opacity-30 hover:opacity-100' : 'opacity-100',
         )}
-        aria-label="Exit stage mode"
+        style={{ color: 'var(--accent)' }}
+        aria-label={isStage ? 'Exit stage mode' : 'Enter stage mode'}
       >
-        <X className="h-3.5 w-3.5" />
-        Exit stage
+        <BrandMark size={32} />
       </button>
 
-      {/* Toolbar bar */}
+      {/* Auto-scroll pill — fixed bottom-left */}
       <div
-        className={cn(
-          'sticky top-14 z-30 -mx-4 px-4 py-2',
-          'bg-background/95 backdrop-blur border-b border-border',
-          'flex items-center gap-3 flex-wrap',
-        )}
+        className={cn('fixed bottom-6 left-6 z-40 stage-fade print:hidden')}
         data-no-print
       >
-        {/* ── Transpose ── */}
-        <span className="text-xs text-muted-foreground uppercase tracking-wide font-medium select-none">
-          Key
-        </span>
-        <div className="flex items-center gap-1">
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-10 w-10 rounded-xl"
-            onClick={() => handleTranspose(-1)}
-            aria-label="Transpose down"
-          >
-            <Minus className="h-4 w-4" />
-          </Button>
-
-          <span
-            aria-live="polite"
-            aria-label={`Current key: ${currentKey}`}
-            className="font-[family-name:var(--font-crimson)] text-2xl font-semibold w-14 text-center tabular-nums"
-          >
-            {currentKey}
-          </span>
-
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-10 w-10 rounded-xl"
-            onClick={() => handleTranspose(1)}
-            aria-label="Transpose up"
-          >
-            <Plus className="h-4 w-4" />
-          </Button>
-        </div>
-
-        {isTransposed && (
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-xs text-muted-foreground gap-1.5 h-8"
-            onClick={handleReset}
-            aria-label="Reset to original key"
-          >
-            <RotateCcw className="h-3 w-3" />
-            Reset
-          </Button>
-        )}
-
-        {/* Divider */}
-        <div className="ml-auto flex items-center gap-2">
-          {/* ── Auto-scroll ── */}
-          <Button
-            variant={autoScrollOn ? 'default' : 'outline'}
-            size="sm"
-            className="h-8 gap-1.5 text-xs rounded-xl"
+        <div className="flex items-center gap-2 rounded-lg border border-[var(--border)] bg-card px-3 py-2 shadow-sm">
+          <button
+            className={cn(
+              'flex items-center transition-colors',
+              autoScrollOn ? 'text-[var(--accent)]' : 'text-muted-foreground hover:text-foreground',
+            )}
             onClick={() => setAutoScrollOn((v) => !v)}
             aria-label={autoScrollOn ? 'Pause auto-scroll' : 'Start auto-scroll'}
           >
             {autoScrollOn ? (
-              <PauseCircle className="h-3.5 w-3.5" />
+              <PauseCircle className="h-4 w-4" />
             ) : (
-              <PlayCircle className="h-3.5 w-3.5" />
+              <PlayCircle className="h-4 w-4" />
             )}
-            Scroll
-          </Button>
-
+          </button>
           {autoScrollOn && (
-            <div className="flex items-center gap-2 w-24">
+            <div className="w-20">
               <Slider
                 min={5}
                 max={100}
@@ -158,18 +101,45 @@ function SongToolbarInner({ originalKey }: SongToolbarProps) {
               />
             </div>
           )}
+        </div>
+      </div>
 
-          {/* ── Stage mode ── */}
-          <Button
-            variant={isStage ? 'default' : 'outline'}
-            size="sm"
-            className="h-8 gap-1.5 text-xs rounded-xl"
-            onClick={toggleStage}
-            aria-label={isStage ? 'Exit stage mode' : 'Enter stage mode'}
+      {/* Transpose pill — fixed bottom-right */}
+      <div
+        className={cn('fixed bottom-6 right-6 z-40 stage-fade print:hidden')}
+        data-no-print
+      >
+        <div className="flex items-center gap-1 rounded-lg border border-[var(--border)] bg-card px-3 py-2 shadow-sm">
+          <button
+            className="flex h-8 w-8 items-center justify-center rounded-md text-lg text-muted-foreground hover:text-foreground transition-colors"
+            onClick={() => handleTranspose(-1)}
+            aria-label="Transpose down"
           >
-            <Tv2 className="h-3.5 w-3.5" />
-            Stage
-          </Button>
+            ‹
+          </button>
+          <span
+            aria-live="polite"
+            aria-label={`Current key: ${currentKey}`}
+            className="font-[family-name:var(--font-mono)] text-base w-8 text-center numerals-old text-foreground"
+          >
+            {currentKey}
+          </span>
+          <button
+            className="flex h-8 w-8 items-center justify-center rounded-md text-lg text-muted-foreground hover:text-foreground transition-colors"
+            onClick={() => handleTranspose(1)}
+            aria-label="Transpose up"
+          >
+            ›
+          </button>
+          {isTransposed && (
+            <button
+              className="flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground hover:text-foreground transition-colors"
+              onClick={handleReset}
+              aria-label="Reset to original key"
+            >
+              <RotateCcw className="h-3.5 w-3.5" />
+            </button>
+          )}
         </div>
       </div>
     </>

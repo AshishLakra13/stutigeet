@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { getCurrentProfile } from '@/lib/auth';
+import { BrandMark } from '@/components/BrandMark';
 import { cn } from '@/lib/utils';
 
 export async function TopHeader() {
@@ -11,9 +12,12 @@ export async function TopHeader() {
       <div className="mx-auto flex h-14 max-w-4xl items-center justify-between px-4">
         <Link
           href="/"
-          className="font-[family-name:var(--font-crimson)] text-xl font-semibold tracking-tight hover:opacity-80 transition-opacity"
+          className="flex items-center gap-2 hover:opacity-80 transition-opacity"
         >
-          Stuti Geet
+          <BrandMark size={24} className="shrink-0" />
+          <span className="font-[family-name:var(--font-crimson)] text-xl font-semibold tracking-tight">
+            Stuti Geet
+          </span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">

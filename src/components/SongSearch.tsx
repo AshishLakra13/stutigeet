@@ -31,9 +31,9 @@ export function SongSearch({ songs }: SongSearchProps) {
 
   return (
     <div>
-      {/* Search input */}
-      <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+      {/* Search input — minimal, bottom-border only */}
+      <div className="relative mb-[var(--breath-phrase)]">
+        <Search className="absolute left-0 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
         <input
           ref={inputRef}
           type="search"
@@ -41,12 +41,13 @@ export function SongSearch({ songs }: SongSearchProps) {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search songs…"
           className={cn(
-            'w-full rounded-xl border border-border bg-background',
-            'pl-9 pr-10 py-2.5 text-sm',
-            'placeholder:text-muted-foreground',
-            'focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent',
-            'transition-colors',
+            'w-full border-0 border-b bg-transparent',
+            'pl-6 pr-8 py-2 text-base',
+            'placeholder:text-muted-foreground placeholder:font-[family-name:var(--font-crimson)] placeholder:italic',
+            'focus:outline-none focus:border-[var(--accent)]',
+            'transition-colors duration-[180ms]',
           )}
+          style={{ borderColor: 'var(--border)' }}
           aria-label="Search songs"
           autoComplete="off"
           spellCheck={false}
@@ -54,7 +55,7 @@ export function SongSearch({ songs }: SongSearchProps) {
         {query && (
           <button
             onClick={clearSearch}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+            className="absolute right-0 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
             aria-label="Clear search"
           >
             <X className="h-4 w-4" />
@@ -62,32 +63,30 @@ export function SongSearch({ songs }: SongSearchProps) {
         )}
       </div>
 
+      {/* Results count */}
+      {isSearching && results.length > 0 && (
+        <p className="font-[family-name:var(--font-inter)] text-xs uppercase tracking-[0.08em] text-muted-foreground mb-3">
+          {results.length} result{results.length !== 1 ? 's' : ''}
+        </p>
+      )}
+
       {/* Results */}
       {results.length === 0 ? (
         isSearching ? (
-          <p className="text-center text-muted-foreground py-16 text-sm">
+          <p className="font-[family-name:var(--font-crimson)] italic text-center text-muted-foreground py-16">
             No songs found for &ldquo;{query}&rdquo;
           </p>
         ) : (
-          <p className="text-center text-muted-foreground py-16 text-sm">
-            No songs yet — run{' '}
-            <code className="text-xs bg-muted px-1 py-0.5 rounded">supabase/seed.sql</code> in
-            Supabase Studio to get started.
+          <p className="font-[family-name:var(--font-crimson)] italic text-center text-muted-foreground py-16">
+            No songs yet.
           </p>
         )
       ) : (
-        <>
-          {isSearching && (
-            <p className="text-xs text-muted-foreground mb-3">
-              {results.length} result{results.length !== 1 ? 's' : ''} for &ldquo;{query}&rdquo;
-            </p>
-          )}
-          <div className="flex flex-col gap-3">
-            {results.map((song) => (
-              <SongCard key={song.id} song={song} />
-            ))}
-          </div>
-        </>
+        <div>
+          {results.map((song) => (
+            <SongCard key={song.id} song={song} />
+          ))}
+        </div>
       )}
     </div>
   );

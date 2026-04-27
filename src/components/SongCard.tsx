@@ -1,6 +1,4 @@
 import Link from 'next/link';
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
 import type { Song } from '@/types/song';
 
 type SongCardProps = {
@@ -8,61 +6,39 @@ type SongCardProps = {
 };
 
 export function SongCard({ song }: SongCardProps) {
-  const { slug, title_hi, title_en, original_key, bpm, themes } = song;
+  const { slug, title_hi, title_en, original_key, bpm } = song;
 
   return (
-    <Link href={`/songs/${slug}`} className="block group">
-      <div
-        className={cn(
-          'rounded-xl border border-border bg-card px-5 py-4',
-          'transition-all duration-200',
-          'hover:border-foreground/20 hover:bg-accent/50 hover:shadow-sm',
-        )}
-      >
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0 flex-1">
-            {title_hi && (
-              <h2
-                lang="hi"
-                className="font-[family-name:var(--font-devanagari)] text-lg font-medium leading-tight truncate"
-              >
-                {title_hi}
-              </h2>
-            )}
-            {title_en && (
-              <p className="text-sm text-muted-foreground mt-0.5 truncate">{title_en}</p>
-            )}
-          </div>
-
-          <div className="flex items-center gap-1.5 flex-shrink-0 flex-wrap justify-end">
-            {original_key && (
-              <Badge variant="secondary" className="text-xs font-mono">
-                {original_key}
-              </Badge>
-            )}
-            {bpm && (
-              <Badge variant="outline" className="text-xs">
-                {bpm} bpm
-              </Badge>
-            )}
-          </div>
+    <Link
+      href={`/songs/${slug}`}
+      className="group block py-3 border-b border-[var(--border)] last:border-b-0"
+    >
+      <div className="flex items-baseline justify-between gap-4">
+        <div className="min-w-0">
+          {title_hi && (
+            <p
+              lang="hi"
+              className="font-[family-name:var(--font-devanagari)] text-lg font-medium text-foreground group-hover:text-[var(--accent)] transition-colors duration-[180ms] truncate"
+            >
+              {title_hi}
+            </p>
+          )}
+          {title_en && (
+            <p className="font-[family-name:var(--font-crimson)] italic text-sm text-muted-foreground truncate">
+              {title_en}
+            </p>
+          )}
         </div>
 
-        {themes && themes.length > 0 && (
-          <div className="flex flex-wrap gap-1 mt-2">
-            {themes
-              .filter((t) => t !== 'demo')
-              .slice(0, 3)
-              .map((theme) => (
-                <span
-                  key={theme}
-                  className="text-[10px] text-muted-foreground capitalize"
-                >
-                  #{theme}
-                </span>
-              ))}
-          </div>
-        )}
+        <div className="shrink-0 flex items-baseline gap-1 text-xs text-muted-foreground numerals-old">
+          {original_key && (
+            <span className="text-[var(--accent)] font-[family-name:var(--font-mono)]">
+              {original_key}
+            </span>
+          )}
+          {original_key && bpm && <span>·</span>}
+          {bpm && <span>{bpm}</span>}
+        </div>
       </div>
     </Link>
   );

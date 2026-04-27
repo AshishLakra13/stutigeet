@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { crimsonPro, inter, devanagari } from '@/lib/fonts';
 import { ThemeProvider } from '@/components/theme-provider';
 import { ServiceWorkerRegister } from '@/components/ServiceWorkerRegister';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -49,6 +50,7 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
         <ServiceWorkerRegister />
+        <Analytics />
       </body>
     </html>
   );

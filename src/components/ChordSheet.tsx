@@ -21,16 +21,18 @@ export function ChordSheet({ chordpro, originalKey }: ChordSheetProps) {
           ? transposeToKey(song, targetKey)
           : song;
       return songToHtml(transposed);
-    } catch (err) {
-      console.error('ChordSheet parse error:', err);
-      return `<pre class="text-sm text-muted-foreground whitespace-pre-wrap">${chordpro}</pre>`;
+    } catch {
+      const escaped = chordpro
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      return `<pre class="text-sm text-muted-foreground whitespace-pre-wrap">${escaped}</pre>`;
     }
   }, [chordpro, originalKey, targetKey]);
 
   return (
     <div
       className="chord-sheet"
-      // Safe: content is from our own DB (admin-controlled), not user-supplied client input
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

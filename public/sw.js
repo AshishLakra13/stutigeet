@@ -3,7 +3,7 @@
 // This is a minimal offline shell — songs render server-side so a full
 // offline cache would require caching each song page individually.
 
-const CACHE_NAME = 'stuti-geet-v1';
+const CACHE_NAME = 'stuti-geet-v2';
 
 // Assets to pre-cache on install (shell)
 const PRECACHE_URLS = [
@@ -41,6 +41,9 @@ self.addEventListener('fetch', (event) => {
 
   // Only handle same-origin GET requests
   if (request.method !== 'GET' || url.origin !== self.location.origin) return;
+
+  // Never cache authenticated routes — could leak admin UI to next visitor on a shared device.
+  if (url.pathname.startsWith('/admin') || url.pathname.startsWith('/auth')) return;
 
   // Skip Next.js internal HMR / RSC requests
   if (url.pathname.startsWith('/_next/webpack-hmr')) return;

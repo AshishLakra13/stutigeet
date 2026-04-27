@@ -2,6 +2,7 @@
 
 import { headers } from 'next/headers';
 import { createClient } from '@/lib/supabase/server';
+import { safeNext } from '@/lib/safe-next';
 
 type SendMagicLinkState = {
   sent?: boolean;
@@ -20,7 +21,7 @@ export async function sendMagicLink(
     return { error: 'Please enter a valid email address.' };
   }
 
-  const next = formData.get('next')?.toString() ?? '/admin';
+  const next = safeNext(formData.get('next')?.toString());
   const origin = await resolveOrigin();
 
   // Silently no-op for non-allowlisted emails so we don't reveal who is admin.

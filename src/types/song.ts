@@ -3,7 +3,8 @@ export type CopyrightStatus =
   | 'original'
   | 'licensed'
   | 'permission_granted'
-  | 'placeholder';
+  | 'placeholder'
+  | 'unverified';
 
 export interface Song {
   id: string;

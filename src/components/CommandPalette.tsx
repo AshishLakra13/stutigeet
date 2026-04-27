@@ -42,6 +42,13 @@ export function CommandPalette({ songs }: CommandPaletteProps) {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Open via mobile search button
+  useEffect(() => {
+    function handleOpen() { setOpen(true); }
+    document.addEventListener('command-palette:open', handleOpen);
+    return () => document.removeEventListener('command-palette:open', handleOpen);
+  }, []);
+
   function handleSelect(slug: string) {
     setOpen(false);
     setQuery('');

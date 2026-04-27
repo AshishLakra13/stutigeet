@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { SearchButton } from '@/components/SearchButton';
 import { getCurrentProfile } from '@/lib/auth';
 import { BrandMark } from '@/components/BrandMark';
 import { cn } from '@/lib/utils';
@@ -38,7 +39,10 @@ export async function TopHeader() {
           )}
         </nav>
 
-        <ThemeToggle />
+        <div className="flex items-center gap-1">
+          <SearchButton />
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

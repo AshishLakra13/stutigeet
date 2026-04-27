@@ -135,3 +135,95 @@
     font-variant-ligatures: contextual;
   }
 }
+
+@layer components {
+  /* ─── Chord Sheet ────────────────────────────────────────── */
+  .chord-sheet {
+    font-family: var(--font-crimson), serif;
+    font-size: 1.25rem;
+    line-height: 1.7;
+  }
+
+  @media (min-width: 768px) {
+    .chord-sheet {
+      font-size: 1.5rem;
+    }
+  }
+
+  .chord-sheet .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.125rem 0.25rem;
+  }
+
+  .chord-sheet .column {
+    display: inline-flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .chord-sheet .chord {
+    font-family: ui-monospace, 'JetBrains Mono', monospace;
+    font-size: 0.8125rem;
+    color: oklch(0.65 0.12 240);
+    font-weight: 500;
+    min-height: 1.25rem;
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+
+  .dark .chord-sheet .chord {
+    color: oklch(0.72 0.1 240);
+  }
+
+  .chord-sheet .lyrics {
+    font-family: var(--font-crimson), var(--font-devanagari), serif;
+    white-space: nowrap;
+  }
+
+  .chord-sheet .paragraph {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Chorus: left accent border */
+  .chord-sheet .paragraph.chorus {
+    border-left: 3px solid var(--primary);
+    padding-left: 1rem;
+  }
+
+  /* Section labels (verse, chorus, bridge) */
+  .chord-sheet .paragraph-label,
+  .chord-sheet .comment {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted-foreground);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  /* Hide ChordSheetJS-generated title/subtitle — we render our own SongHeader */
+  .chord-sheet .title,
+  .chord-sheet .subtitle {
+    display: none;
+  }
+
+  /* Devanagari rows need more vertical breathing room for matras */
+  .chord-sheet .row:has(:lang(hi)),
+  :lang(hi) .chord-sheet .row {
+    row-gap: 0.5rem;
+  }
+
+  /* ─── Print ──────────────────────────────────────────────── */
+  @media print {
+    .chord-sheet {
+      font-size: 1rem;
+    }
+
+    [data-no-print],
+    nav,
+    header {
+      display: none !important;
+    }
+  }
+}

@@ -28,6 +28,17 @@ Copy `.env.example` to `.env.local` and fill in the values from your Supabase pr
 
 Also add these to Vercel → Project → Settings → Environment Variables.
 
+## Database setup
+
+Run these SQL files in **Supabase Studio → SQL Editor** (in order):
+
+1. `supabase/schema.sql` — creates the `songs` table, indexes, RLS policies
+2. `supabase/seed.sql` — inserts 1 demo song for Phase 1 testing
+
+Then verify: Studio → Table Editor → `songs` table should have 1 row with slug `demo-stuti-geet`.
+
+To add real worship songs: use the Studio row editor — paste ChordPro into `lyrics_chordpro`, set `original_key`, `bpm`, etc.
+
 ## Implementation plan
 
 See [`../Christain Hindi Songs/IMPLEMENTATION_PLAN.md`](../Christain%20Hindi%20Songs/IMPLEMENTATION_PLAN.md) for the full phase-by-phase roadmap.

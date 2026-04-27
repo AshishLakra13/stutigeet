@@ -1,0 +1,21 @@
+import { Crimson_Pro, Inter, Noto_Sans_Devanagari } from 'next/font/google';
+
+export const crimsonPro = Crimson_Pro({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-crimson',
+  weight: ['400', '500', '600', '700'],
+});
+
+export const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+export const devanagari = Noto_Sans_Devanagari({
+  subsets: ['devanagari', 'latin'],
+  display: 'swap',
+  variable: '--font-devanagari',
+  weight: ['400', '500', '700'],
+});

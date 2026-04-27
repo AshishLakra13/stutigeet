@@ -214,6 +214,42 @@
     row-gap: 0.5rem;
   }
 
+  /* ─── Stage Mode ────────────────────────────────────────── */
+  /* Applied via JS: document.body.classList.add('stage-mode') */
+}
+
+/* Stage mode — outside @layer components so specificity beats nav rules */
+body.stage-mode nav,
+body.stage-mode header,
+body.stage-mode [data-no-print] {
+  display: none !important;
+}
+
+body.stage-mode .chord-sheet {
+  font-size: 2rem;
+  line-height: 1.8;
+}
+
+@media (min-width: 768px) {
+  body.stage-mode .chord-sheet {
+    font-size: 2.5rem;
+  }
+}
+
+body.stage-mode .chord-sheet .chord {
+  font-size: 1rem;
+}
+
+/* Exit stage-mode button: always visible, fixed top-right */
+body.stage-mode [data-stage-exit] {
+  display: flex !important;
+}
+
+[data-stage-exit] {
+  display: none;
+}
+
+@layer components {
   /* ─── Print ──────────────────────────────────────────────── */
   @media print {
     .chord-sheet {

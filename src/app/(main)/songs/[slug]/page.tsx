@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { getSongBySlug } from '@/lib/songs';
 import { SongHeader } from '@/components/SongHeader';
 import { ChordSheet } from '@/components/ChordSheet';
-import { TransposeControls } from '@/components/TransposeControls';
+import { SongToolbar } from '@/components/SongToolbar';
 
 type SongPageProps = {
   params: Promise<{ slug: string }>;
@@ -33,9 +33,7 @@ export default async function SongPage({ params, searchParams }: SongPageProps) 
     <main className="mx-auto max-w-3xl px-4 py-6">
       <SongHeader song={song} currentKey={currentKey} />
 
-      <Suspense fallback={null}>
-        <TransposeControls originalKey={song.original_key} />
-      </Suspense>
+      <SongToolbar originalKey={song.original_key} />
 
       <div className="mt-6">
         <Suspense fallback={<div className="h-64 animate-pulse bg-muted rounded-lg" />}>

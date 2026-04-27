@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Background -->
+  <rect width="512" height="512" rx="96" fill="#1a1a1a"/>
+  <!-- Musical note -->
+  <g fill="#ffffff">
+    <!-- Note head -->
+    <ellipse cx="180" cy="360" rx="48" ry="36" transform="rotate(-15 180 360)"/>
+    <!-- Note stem -->
+    <rect x="220" y="160" width="16" height="208" rx="8"/>
+    <!-- Note flag / beam -->
+    <path d="M236 160 Q320 200 340 280 Q310 260 236 280 Z" />
+    <!-- Devanagari-inspired cross stroke (stylised) -->
+    <rect x="130" y="148" width="180" height="14" rx="7"/>
+  </g>
+</svg>

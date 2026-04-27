@@ -1,0 +1,78 @@
+// Stuti Geet — Service Worker
+// Strategy: Cache-first for static assets, Network-first for pages/API.
+// This is a minimal offline shell — songs render server-side so a full
+// offline cache would require caching each song page individually.
+
+const CACHE_NAME = 'stuti-geet-v1';
+
+// Assets to pre-cache on install (shell)
+const PRECACHE_URLS = [
+  '/',
+  '/songs',
+  '/manifest.json',
+];
+
+// ── Install ─────────────────────────────────────────────────────────────────
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS)),
+  );
+  self.skipWaiting();
+});
+
+// ── Activate ─────────────────────────────────────────────────────────────────
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys
+          .filter((key) => key !== CACHE_NAME)
+          .map((key) => caches.delete(key)),
+      ),
+    ),
+  );
+  self.clients.claim();
+});
+
+// ── Fetch ─────────────────────────────────────────────────────────────────────
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  const url = new URL(request.url);
+
+  // Only handle same-origin GET requests
+  if (request.method !== 'GET' || url.origin !== self.location.origin) return;
+
+  // Skip Next.js internal HMR / RSC requests
+  if (url.pathname.startsWith('/_next/webpack-hmr')) return;
+  if (url.searchParams.has('_rsc')) return;
+
+  // Static assets (_next/static): cache-first
+  if (url.pathname.startsWith('/_next/static/')) {
+    event.respondWith(
+      caches.match(request).then(
+        (cached) => cached ?? fetchAndCache(request),
+      ),
+    );
+    return;
+  }
+
+  // Everything else: network-first with cache fallback
+  event.respondWith(
+    fetch(request)
+      .then((response) => {
+        if (response.ok) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+        }
+        return response;
+      })
+      .catch(() => caches.match(request)),
+  );
+});
+
+async function fetchAndCache(request) {
+  const cache = await caches.open(CACHE_NAME);
+  const response = await fetch(request);
+  if (response.ok) cache.put(request, response.clone());
+  return response;
+}

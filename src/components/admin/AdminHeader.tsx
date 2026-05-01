@@ -1,9 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import { useTransition } from 'react';
-import { useRouter } from 'next/navigation';
-import { LogOut, Music, Settings } from 'lucide-react';
+import { useRouter } from '@/i18n/navigation';
+import { Link } from '@/i18n/navigation';
+import { LogOut, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/client';
 
@@ -49,8 +49,14 @@ export function AdminHeader({ email }: AdminHeaderProps) {
           <Link href="/admin/songs" className="hover:text-foreground transition-colors">
             Songs
           </Link>
-          <Link href="/admin/songs/new" className="hover:text-foreground transition-colors">
-            + Add song
+          <Link href="/admin/review" className="hover:text-foreground transition-colors">
+            Review
+          </Link>
+          <Link href="/admin/takedowns" className="hover:text-foreground transition-colors">
+            Takedowns
+          </Link>
+          <Link href="/admin/settings" className="hover:text-foreground transition-colors">
+            Settings
           </Link>
         </nav>
 

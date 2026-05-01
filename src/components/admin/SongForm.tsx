@@ -17,7 +17,7 @@ import { ChordSheet } from '@/components/ChordSheet';
 import { parseChordPro, transposeToKey, songToHtml } from '@/lib/chordpro';
 import { MAJOR_KEYS, MINOR_KEYS } from '@/lib/keys';
 import { slugify } from '@/lib/slug';
-import { createSong, updateSong, type ActionState } from '@/app/(admin)/admin/songs/actions';
+import { createSong, updateSong, type ActionState } from '@/app/[locale]/(admin)/admin/songs/actions';
 import type { Song } from '@/types/song';
 import { cn } from '@/lib/utils';
 

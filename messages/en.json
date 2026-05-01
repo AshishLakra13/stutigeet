@@ -1,0 +1,124 @@
+{
+  "Nav": {
+    "songs": "Songs",
+    "sets": "Sets",
+    "admin": "Admin",
+    "contribute": "Contribute",
+    "signIn": "Sign in",
+    "developers": "API"
+  },
+  "Home": {
+    "songsSection": "Songs",
+    "noSongs": "No songs yet."
+  },
+  "SongLibrary": {
+    "titleHi": "सभी गीत",
+    "titleEn": "All Songs",
+    "showing": "Showing {from}–{to} of {total}",
+    "totalCount": "{total, plural, one {# song} other {# songs}}",
+    "noSongs": "No songs yet.",
+    "noMatches": "No songs found for \"{query}\".",
+    "noFilters": "No songs match your filters.",
+    "clearFilters": "Clear filters",
+    "pageEmpty": "That page is empty.",
+    "goToLastPage": "Go to last page",
+    "searchPlaceholder": "Search songs…"
+  },
+  "TrustPanel": {
+    "unverifiedBanner": "Unverified — pending review",
+    "reportConcern": "Report a copyright concern",
+    "pendingStub": "This song is pending copyright verification and is not available for public viewing.",
+    "sourceLabel": "Source",
+    "verifiedLabel": "Verified",
+    "licenseLabels": {
+      "public_domain": "Public Domain",
+      "original": "Original Work",
+      "licensed": "Licensed",
+      "permission_granted": "Permission Granted",
+      "cc_by": "CC BY",
+      "cc_by_sa": "CC BY-SA",
+      "unverified": "Unverified",
+      "placeholder": "Placeholder"
+    }
+  },
+  "Login": {
+    "title": "Stuti Geet",
+    "subtitle": "Sign in to your account",
+    "continueWithGoogle": "Continue with Google",
+    "or": "or",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "sendMagicLink": "Send magic link",
+    "sending": "Sending…",
+    "checkInboxTitle": "Check your inbox",
+    "checkInboxBody": "We sent a sign-in link to your email. Click it to continue — no password needed.",
+    "linkExpiry": "The link expires in 15 minutes.",
+    "backToSite": "← Back to site"
+  },
+  "Account": {
+    "title": "Your account",
+    "metaTitle": "Your account — Stuti Geet",
+    "roleLabel": "Role",
+    "profileSection": "Profile",
+    "displayNameLabel": "Display name",
+    "displayNamePlaceholder": "Your name",
+    "saveButton": "Save",
+    "saving": "Saving…",
+    "nameSaved": "Name updated.",
+    "adminLink": "→ Admin dashboard",
+    "signOut": "Sign out",
+    "roles": {
+      "viewer": "Viewer",
+      "contributor": "Contributor",
+      "editor": "Editor",
+      "admin": "Admin"
+    }
+  },
+  "AvatarMenu": {
+    "label": "Account menu",
+    "yourAccount": "Your account",
+    "favorites": "Favorites",
+    "mySets": "My sets",
+    "admin": "Admin",
+    "signOut": "Sign out"
+  },
+  "Admin": {
+    "dashboard": "Dashboard",
+    "review": "Review",
+    "songs": "Songs",
+    "newSong": "New song",
+    "editSong": "Edit song",
+    "takedownsTitle": "Takedowns",
+    "settingsTitle": "Settings",
+    "noTakedowns": "No takedowns yet.",
+    "uphold": "Uphold",
+    "reject": "Reject",
+    "reason": "Reason (optional)",
+    "strictGateLabel": "Strict Verification Gate",
+    "strictGateDescription": "When enabled, unverified songs older than the grace period will not render publicly.",
+    "graceDaysLabel": "Grace period (days)",
+    "saveSettings": "Save settings",
+    "saving": "Saving…",
+    "settingsSaved": "Settings saved."
+  },
+  "Legal": {
+    "dmcaTitle": "Report a Copyright Concern",
+    "dmcaSubtitle": "If you believe content on this site infringes your copyright, please complete this form. We take copyright seriously and will respond within 5 business days.",
+    "nameLabel": "Your full name",
+    "emailLabel": "Your email address",
+    "claimLabel": "Describe your copyright claim",
+    "claimPlaceholder": "Please describe the allegedly infringing content, your ownership of the copyright, and any other relevant details.",
+    "submit": "Submit report",
+    "submitting": "Submitting…",
+    "successTitle": "Report received",
+    "successBody": "Thank you. We have recorded your claim and will respond to your email address within 5 business days.",
+    "backToSong": "← Back to song"
+  },
+  "Metadata": {
+    "siteTitle": "Stuti Geet — Christian Hindi Worship Songs",
+    "siteDescription": "Chord sheets and lyrics for Christian Hindi worship songs",
+    "songsTitle": "All Songs — Stuti Geet",
+    "songsDescription": "Browse all Christian Hindi worship songs with chord sheets",
+    "loginTitle": "Sign In — Stuti Geet"
+  }
+}

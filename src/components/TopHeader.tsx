@@ -1,12 +1,14 @@
-import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
+import { Link } from '@/i18n/navigation';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { SearchButton } from '@/components/SearchButton';
 import { getCurrentProfile } from '@/lib/auth';
 import { BrandMark } from '@/components/BrandMark';
-import { cn } from '@/lib/utils';
+import { AvatarMenu } from '@/components/AvatarMenu';
+import { signOut } from '@/app/[locale]/(main)/account/actions';
 
 export async function TopHeader() {
-  const profile = await getCurrentProfile();
+  const [profile, t] = await Promise.all([getCurrentProfile(), getTranslations('Nav')]);
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -23,18 +25,22 @@ export async function TopHeader() {
 
         <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
           <Link href="/songs" className="hover:text-foreground transition-colors">
-            Songs
+            {t('songs')}
           </Link>
           <Link href="/sets" className="hover:text-foreground transition-colors">
-            Sets
+            {t('sets')}
           </Link>
-          {profile?.role === 'admin' ? (
-            <Link href="/admin" className="hover:text-foreground transition-colors">
-              Admin
+          {profile && profile.role !== 'viewer' && (
+            <Link href="/contribute" className="hover:text-foreground transition-colors">
+              {t('contribute')}
             </Link>
-          ) : (
+          )}
+          <Link href="/developers" className="hover:text-foreground transition-colors">
+            {t('developers')}
+          </Link>
+          {!profile && (
             <Link href="/login" className="hover:text-foreground transition-colors">
-              Sign in
+              {t('signIn')}
             </Link>
           )}
         </nav>
@@ -42,6 +48,14 @@ export async function TopHeader() {
         <div className="flex items-center gap-1">
           <SearchButton />
           <ThemeToggle />
+          {profile && (
+            <AvatarMenu
+              displayName={profile.display_name}
+              avatarUrl={profile.avatar_url}
+              role={profile.role}
+              signOutAction={signOut}
+            />
+          )}
         </div>
       </div>
     </header>

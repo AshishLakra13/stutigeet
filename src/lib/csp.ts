@@ -16,11 +16,27 @@ export function buildCspHeader(nonce: string): string {
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com",
     "font-src 'self' data:",
-    "connect-src 'self' https://*.supabase.co wss://*.supabase.co",
+    "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.ingest.sentry.io https://plausible.io",
     "frame-src https://www.youtube.com https://www.youtube-nocookie.com",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
+    "object-src 'none'",
+    'upgrade-insecure-requests',
+  ].join('; ');
+}
+
+export function buildEmbedCspHeader(nonce: string): string {
+  return [
+    "default-src 'self'",
+    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
+    "style-src 'self' 'unsafe-inline'",
+    "img-src 'self' data: blob:",
+    "font-src 'self' data:",
+    "connect-src 'self' https://*.supabase.co wss://*.supabase.co",
+    "frame-src 'none'",
+    "frame-ancestors *",
+    "base-uri 'self'",
     "object-src 'none'",
     'upgrade-insecure-requests',
   ].join('; ');

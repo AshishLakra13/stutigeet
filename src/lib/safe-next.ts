@@ -6,7 +6,7 @@
  */
 export function safeNext(
   next: string | null | undefined,
-  fallback = '/admin',
+  fallback = '/',
 ): string {
   if (!next || typeof next !== 'string') return fallback;
   if (!next.startsWith('/')) return fallback;

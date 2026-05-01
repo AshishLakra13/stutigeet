@@ -13,7 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { deleteSong } from '@/app/(admin)/admin/songs/actions';
+import { deleteSong } from '@/app/[locale]/(admin)/admin/songs/actions';
 import type { Song } from '@/types/song';
 import { cn } from '@/lib/utils';
 

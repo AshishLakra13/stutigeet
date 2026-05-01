@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, Suspense } from 'react';
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname } from '@/i18n/navigation';
+import { useSearchParams } from 'next/navigation';
 import { RotateCcw, PlayCircle, PauseCircle } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { nextKey } from '@/lib/keys';

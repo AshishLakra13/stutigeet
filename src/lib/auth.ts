@@ -2,10 +2,14 @@ import 'server-only';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 
+export type Role = 'viewer' | 'contributor' | 'editor' | 'admin';
+
 export type Profile = {
   id: string;
   email: string;
-  role: 'viewer' | 'admin';
+  role: Role;
+  display_name: string | null;
+  avatar_url: string | null;
   created_at: string;
 };
 
@@ -26,7 +30,7 @@ export async function getCurrentProfile(): Promise<Profile | null> {
   const supabase = await createClient();
   const { data } = await supabase
     .from('profiles')
-    .select('id, email, role, created_at')
+    .select('id, email, role, display_name, avatar_url, created_at')
     .eq('id', user.id)
     .maybeSingle();
 
@@ -35,19 +39,33 @@ export async function getCurrentProfile(): Promise<Profile | null> {
 
 /**
  * Server-side admin guard.
- * Call at the top of any admin Server Component or Server Action.
- * Redirects to /login if not signed in, to / if signed in but not admin.
+ * Redirects to /login if not signed in, to / if not admin.
  */
 export async function requireAdmin(): Promise<Profile> {
   const profile = await getCurrentProfile();
+  if (!profile) redirect('/login?next=/admin');
+  if (profile.role !== 'admin') redirect('/');
+  return profile;
+}
 
-  if (!profile) {
-    redirect('/login?next=/admin');
-  }
+/**
+ * Server-side editor-or-above guard.
+ * Redirects to /login if not signed in, to / if below editor.
+ */
+export async function requireEditor(): Promise<Profile> {
+  const profile = await getCurrentProfile();
+  if (!profile) redirect('/login');
+  if (profile.role !== 'editor' && profile.role !== 'admin') redirect('/');
+  return profile;
+}
 
-  if (profile.role !== 'admin') {
-    redirect('/');
-  }
-
+/**
+ * Server-side contributor-or-above guard.
+ * Redirects to /login if not signed in, to / if below contributor.
+ */
+export async function requireContributor(): Promise<Profile> {
+  const profile = await getCurrentProfile();
+  if (!profile) redirect('/login');
+  if (profile.role === 'viewer') redirect('/');
   return profile;
 }

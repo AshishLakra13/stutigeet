@@ -65,6 +65,8 @@ export const songSchema = z.object({
 
   artist_original: z.string().optional().nullable(),
   youtube_url: z.string().url('Must be a valid URL').optional().nullable().or(z.literal('')),
+  source_url: z.string().url('Must be a valid URL').optional().nullable().or(z.literal('')),
+  source_name: z.string().optional().nullable(),
   copyright_status: z.enum(COPYRIGHT_STATUSES).optional().nullable(),
   copyright_notes: z.string().optional().nullable(),
 });

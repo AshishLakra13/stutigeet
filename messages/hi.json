@@ -1,0 +1,124 @@
+{
+  "Nav": {
+    "songs": "गीत",
+    "sets": "सूची",
+    "admin": "एडमिन",
+    "contribute": "योगदान",
+    "signIn": "लॉगिन",
+    "developers": "API"
+  },
+  "Home": {
+    "songsSection": "Songs",
+    "noSongs": "अभी कोई गीत नहीं।"
+  },
+  "SongLibrary": {
+    "titleHi": "सभी गीत",
+    "titleEn": "All Songs",
+    "showing": "Showing {from}–{to} of {total}",
+    "totalCount": "{total, plural, one {# song} other {# songs}}",
+    "noSongs": "अभी कोई गीत नहीं।",
+    "noMatches": "कोई गीत नहीं मिला \"{query}\" के लिए।",
+    "noFilters": "फ़िल्टर से कोई गीत नहीं मिला।",
+    "clearFilters": "फ़िल्टर हटाएं",
+    "pageEmpty": "यह पृष्ठ खाली है।",
+    "goToLastPage": "अंतिम पृष्ठ पर जाएं",
+    "searchPlaceholder": "गीत खोजें…"
+  },
+  "TrustPanel": {
+    "unverifiedBanner": "असत्यापित — समीक्षा प्रतीक्षित",
+    "reportConcern": "कॉपीराइट चिंता रिपोर्ट करें",
+    "pendingStub": "यह गीत कॉपीराइट सत्यापन में है और अभी सार्वजनिक रूप से उपलब्ध नहीं है।",
+    "sourceLabel": "स्रोत",
+    "verifiedLabel": "सत्यापित",
+    "licenseLabels": {
+      "public_domain": "सार्वजनिक डोमेन",
+      "original": "मूल कार्य",
+      "licensed": "लाइसेंस प्राप्त",
+      "permission_granted": "अनुमति प्राप्त",
+      "cc_by": "CC BY",
+      "cc_by_sa": "CC BY-SA",
+      "unverified": "असत्यापित",
+      "placeholder": "प्लेसहोल्डर"
+    }
+  },
+  "Login": {
+    "title": "Stuti Geet",
+    "subtitle": "अपने खाते में लॉगिन करें",
+    "continueWithGoogle": "Google से जारी रखें",
+    "or": "या",
+    "emailLabel": "ईमेल",
+    "emailPlaceholder": "you@example.com",
+    "sendMagicLink": "मैजिक लिंक भेजें",
+    "sending": "भेज रहे हैं…",
+    "checkInboxTitle": "अपना इनबॉक्स देखें",
+    "checkInboxBody": "हमने आपके ईमेल पर एक साइन-इन लिंक भेजा है। आगे जारी रखने के लिए उस पर क्लिक करें — कोई पासवर्ड नहीं चाहिए।",
+    "linkExpiry": "लिंक 15 मिनट में समाप्त हो जाएगा।",
+    "backToSite": "← साइट पर वापस जाएं"
+  },
+  "Account": {
+    "title": "आपका खाता",
+    "metaTitle": "आपका खाता — Stuti Geet",
+    "roleLabel": "भूमिका",
+    "profileSection": "प्रोफ़ाइल",
+    "displayNameLabel": "प्रदर्शन नाम",
+    "displayNamePlaceholder": "आपका नाम",
+    "saveButton": "सहेजें",
+    "saving": "सहेज रहे हैं…",
+    "nameSaved": "नाम अपडेट किया गया।",
+    "adminLink": "→ एडमिन डैशबोर्ड",
+    "signOut": "साइन आउट",
+    "roles": {
+      "viewer": "दर्शक",
+      "contributor": "योगदानकर्ता",
+      "editor": "संपादक",
+      "admin": "एडमिन"
+    }
+  },
+  "AvatarMenu": {
+    "label": "खाता मेनू",
+    "yourAccount": "आपका खाता",
+    "favorites": "पसंदीदा",
+    "mySets": "मेरी सूचियां",
+    "admin": "एडमिन",
+    "signOut": "साइन आउट"
+  },
+  "Admin": {
+    "dashboard": "डैशबोर्ड",
+    "review": "समीक्षा",
+    "songs": "गीत",
+    "newSong": "नया गीत",
+    "editSong": "गीत संपादित करें",
+    "takedownsTitle": "टेकडाउन",
+    "settingsTitle": "सेटिंग्स",
+    "noTakedowns": "अभी कोई टेकडाउन नहीं।",
+    "uphold": "बरकरार रखें",
+    "reject": "अस्वीकार करें",
+    "reason": "कारण (वैकल्पिक)",
+    "strictGateLabel": "सख्त सत्यापन गेट",
+    "strictGateDescription": "सक्षम होने पर, ग्रेस अवधि से पुराने असत्यापित गीत सार्वजनिक रूप से नहीं दिखेंगे।",
+    "graceDaysLabel": "ग्रेस अवधि (दिन)",
+    "saveSettings": "सेटिंग्स सहेजें",
+    "saving": "सहेज रहे हैं…",
+    "settingsSaved": "सेटिंग्स सहेजी गईं।"
+  },
+  "Legal": {
+    "dmcaTitle": "कॉपीराइट चिंता रिपोर्ट करें",
+    "dmcaSubtitle": "यदि आपको लगता है कि इस साइट पर कोई सामग्री आपके कॉपीराइट का उल्लंघन करती है, तो कृपया यह फ़ॉर्म भरें। हम 5 कार्यदिवसों के भीतर जवाब देंगे।",
+    "nameLabel": "आपका पूरा नाम",
+    "emailLabel": "आपका ईमेल पता",
+    "claimLabel": "अपना कॉपीराइट दावा वर्णन करें",
+    "claimPlaceholder": "कृपया कथित उल्लंघनकारी सामग्री, आपके कॉपीराइट का स्वामित्व और अन्य प्रासंगिक विवरण वर्णन करें।",
+    "submit": "रिपोर्ट सबमिट करें",
+    "submitting": "सबमिट हो रहा है…",
+    "successTitle": "रिपोर्ट प्राप्त हुई",
+    "successBody": "धन्यवाद। हमने आपका दावा दर्ज किया है और 5 कार्यदिवसों के भीतर आपके ईमेल पर जवाब देंगे।",
+    "backToSong": "← गीत पर वापस जाएं"
+  },
+  "Metadata": {
+    "siteTitle": "Stuti Geet — ईसाई हिंदी भजन",
+    "siteDescription": "हिंदी ईसाई भजनों के लिए कॉर्ड शीट और गीत",
+    "songsTitle": "सभी गीत — Stuti Geet",
+    "songsDescription": "सभी ईसाई हिंदी भजनों के कॉर्ड शीट देखें",
+    "loginTitle": "लॉगिन — Stuti Geet"
+  }
+}

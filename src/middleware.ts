@@ -1,6 +1,10 @@
 import { type NextRequest, NextResponse } from 'next/server';
+import createIntlMiddleware from 'next-intl/middleware';
 import { updateSession } from '@/lib/supabase/middleware';
-import { buildCspHeader } from '@/lib/csp';
+import { buildCspHeader, buildEmbedCspHeader } from '@/lib/csp';
+import { routing } from '@/i18n/routing';
+
+const intlMiddleware = createIntlMiddleware(routing);
 
 export async function middleware(request: NextRequest) {
   // Per-request CSP nonce. Server components read it via headers().get('x-nonce').
@@ -12,12 +16,28 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
+  // Embed routes: allow framing, skip intl
+  if (pathname.startsWith('/embed/')) {
+    const embedCsp = buildEmbedCspHeader(nonce);
+    const response = NextResponse.next({ request: { headers: requestHeaders } });
+    response.headers.set('Content-Security-Policy', embedCsp);
+    response.headers.delete('X-Frame-Options');
+    return response;
+  }
+
+  // API routes: skip intl and auth, just pass through
+  if (pathname.startsWith('/api/')) {
+    return NextResponse.next({ request: { headers: requestHeaders } });
+  }
+
+  // Strip optional locale prefix for path matching (e.g. /en/admin → /admin)
+  const strippedPath = pathname.replace(/^\/(hi|en)/, '') || '/';
+
   // Only hit Supabase for routes that actually need auth.
-  // Public routes (/, /songs, /songs/[slug], /sets, …) skip the round trip.
   const needsAuth =
-    pathname.startsWith('/admin') ||
-    pathname.startsWith('/auth') ||
-    pathname === '/login';
+    strippedPath.startsWith('/admin') ||
+    strippedPath.startsWith('/auth') ||
+    strippedPath === '/login';
 
   if (needsAuth) {
     const { supabaseResponse, user, supabase } = await updateSession(
@@ -25,15 +45,14 @@ export async function middleware(request: NextRequest) {
       requestHeaders,
     );
 
-    // Gate all /admin/* routes
-    if (pathname.startsWith('/admin')) {
+    if (strippedPath.startsWith('/admin')) {
       if (!user) {
         const loginUrl = request.nextUrl.clone();
         loginUrl.pathname = '/login';
         loginUrl.searchParams.set('next', pathname);
-        const redirect = NextResponse.redirect(loginUrl);
-        redirect.headers.set('Content-Security-Policy', csp);
-        return redirect;
+        const redirectRes = NextResponse.redirect(loginUrl);
+        redirectRes.headers.set('Content-Security-Policy', csp);
+        return redirectRes;
       }
 
       const { data: profile } = await supabase
@@ -42,13 +61,13 @@ export async function middleware(request: NextRequest) {
         .eq('id', user.id)
         .maybeSingle();
 
-      if (profile?.role !== 'admin') {
+      if (profile?.role !== 'admin' && profile?.role !== 'editor') {
         const homeUrl = request.nextUrl.clone();
         homeUrl.pathname = '/';
         homeUrl.searchParams.delete('next');
-        const redirect = NextResponse.redirect(homeUrl);
-        redirect.headers.set('Content-Security-Policy', csp);
-        return redirect;
+        const redirectRes = NextResponse.redirect(homeUrl);
+        redirectRes.headers.set('Content-Security-Policy', csp);
+        return redirectRes;
       }
     }
 
@@ -56,7 +75,16 @@ export async function middleware(request: NextRequest) {
     return supabaseResponse;
   }
 
-  // Public path: emit CSP + nonce without any Supabase round trip.
+  // Run next-intl locale detection + redirect on public paths
+  const intlResponse = intlMiddleware(request);
+
+  // If next-intl issued a redirect (locale negotiation), attach CSP and return
+  if (intlResponse.status !== 200 && intlResponse.headers.get('location')) {
+    intlResponse.headers.set('Content-Security-Policy', csp);
+    return intlResponse;
+  }
+
+  // Normal public path: merge nonce into request headers and attach CSP
   const response = NextResponse.next({ request: { headers: requestHeaders } });
   response.headers.set('Content-Security-Policy', csp);
   return response;

@@ -1,11 +1,8 @@
 {
   "Nav": {
     "songs": "Songs",
-    "sets": "Sets",
     "admin": "Admin",
-    "contribute": "Contribute",
-    "signIn": "Sign in",
-    "developers": "API"
+    "contribute": "Contribute"
   },
   "Home": {
     "songsSection": "Songs",
@@ -53,7 +50,9 @@
     "checkInboxTitle": "Check your inbox",
     "checkInboxBody": "We sent a sign-in link to your email. Click it to continue — no password needed.",
     "linkExpiry": "The link expires in 15 minutes.",
-    "backToSite": "← Back to site"
+    "backToSite": "← Back to site",
+    "restrictedError": "Sign-in is restricted.",
+    "genericAuthError": "Sign-in failed. Please try again."
   },
   "Account": {
     "title": "Your account",
@@ -78,7 +77,6 @@
     "label": "Account menu",
     "yourAccount": "Your account",
     "favorites": "Favorites",
-    "mySets": "My sets",
     "admin": "Admin",
     "signOut": "Sign out"
   },

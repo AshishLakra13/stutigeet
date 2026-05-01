@@ -76,13 +76,6 @@ export function AvatarMenu({ displayName, avatarUrl, role, signOutAction }: Avat
               {t('favorites')}
             </Menu.Item>
 
-            <Menu.Item
-              render={<Link href="/me/sets" />}
-              className="flex cursor-pointer items-center rounded-md px-2 py-1.5 text-sm outline-none focus:bg-accent focus:text-accent-foreground"
-            >
-              {t('mySets')}
-            </Menu.Item>
-
             {(role === 'editor' || role === 'admin') && (
               <Menu.Item
                 render={<Link href="/admin" />}

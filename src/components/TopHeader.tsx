@@ -27,20 +27,9 @@ export async function TopHeader() {
           <Link href="/songs" className="hover:text-foreground transition-colors">
             {t('songs')}
           </Link>
-          <Link href="/sets" className="hover:text-foreground transition-colors">
-            {t('sets')}
-          </Link>
           {profile && profile.role !== 'viewer' && (
             <Link href="/contribute" className="hover:text-foreground transition-colors">
               {t('contribute')}
-            </Link>
-          )}
-          <Link href="/developers" className="hover:text-foreground transition-colors">
-            {t('developers')}
-          </Link>
-          {!profile && (
-            <Link href="/login" className="hover:text-foreground transition-colors">
-              {t('signIn')}
             </Link>
           )}
         </nav>

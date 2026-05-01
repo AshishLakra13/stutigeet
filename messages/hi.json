@@ -1,11 +1,8 @@
 {
   "Nav": {
     "songs": "गीत",
-    "sets": "सूची",
     "admin": "एडमिन",
-    "contribute": "योगदान",
-    "signIn": "लॉगिन",
-    "developers": "API"
+    "contribute": "योगदान"
   },
   "Home": {
     "songsSection": "Songs",
@@ -53,7 +50,9 @@
     "checkInboxTitle": "अपना इनबॉक्स देखें",
     "checkInboxBody": "हमने आपके ईमेल पर एक साइन-इन लिंक भेजा है। आगे जारी रखने के लिए उस पर क्लिक करें — कोई पासवर्ड नहीं चाहिए।",
     "linkExpiry": "लिंक 15 मिनट में समाप्त हो जाएगा।",
-    "backToSite": "← साइट पर वापस जाएं"
+    "backToSite": "← साइट पर वापस जाएं",
+    "restrictedError": "साइन-इन प्रतिबंधित है।",
+    "genericAuthError": "साइन-इन विफल। कृपया पुनः प्रयास करें।"
   },
   "Account": {
     "title": "आपका खाता",
@@ -78,7 +77,6 @@
     "label": "खाता मेनू",
     "yourAccount": "आपका खाता",
     "favorites": "पसंदीदा",
-    "mySets": "मेरी सूचियां",
     "admin": "एडमिन",
     "signOut": "साइन आउट"
   },

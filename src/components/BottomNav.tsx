@@ -2,12 +2,11 @@
 
 import { Link, usePathname } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
-import { Music, ListMusic, Settings } from 'lucide-react';
+import { Music, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const NAV_ITEMS = [
   { href: '/songs' as const, labelKey: 'songs' as const, Icon: Music },
-  { href: '/sets' as const, labelKey: 'sets' as const, Icon: ListMusic },
   { href: '/admin' as const, labelKey: 'admin' as const, Icon: Settings },
 ];
 

@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server';
 import { safeNext } from '@/lib/safe-next';
+import { isAdminEmail } from '@/lib/admin-allowlist';
 
 type SendMagicLinkState = {
   sent?: boolean;
@@ -16,6 +17,10 @@ export async function sendMagicLink(
 
   if (!email || !email.includes('@')) {
     return { error: 'Please enter a valid email address.' };
+  }
+
+  if (!isAdminEmail(email)) {
+    return { error: 'Sign-in is restricted.' };
   }
 
   const next = safeNext(formData.get('next')?.toString(), '/');

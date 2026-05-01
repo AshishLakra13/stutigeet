@@ -18,9 +18,12 @@ type Props = {
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://stutigeet.com';
 
+const SITE_TITLE = 'Stuti Geet — Christian Hindi Worship Songs';
+const SITE_DESCRIPTION = 'Chord sheets and lyrics for Christian Hindi worship songs';
+
 export const metadata: Metadata = {
-  title: 'Stuti Geet — Christian Hindi Worship Songs',
-  description: 'Chord sheets and lyrics for Christian Hindi worship songs',
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
   manifest: '/manifest.json',
   metadataBase: new URL(BASE_URL),
   alternates: {
@@ -35,6 +38,27 @@ export const metadata: Metadata = {
   icons: {
     icon: '/icons/icon-192.png',
     apple: '/icons/icon-192.png',
+  },
+  openGraph: {
+    type: 'website',
+    url: BASE_URL,
+    siteName: 'Stuti Geet',
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Stuti Geet',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: ['/og-image.png'],
   },
 };
 

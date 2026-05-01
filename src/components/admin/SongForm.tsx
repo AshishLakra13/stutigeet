@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, useActionState } from 'react';
+import { useState, useRef, useEffect, useActionState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -14,7 +14,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { ChordSheet } from '@/components/ChordSheet';
-import { MAJOR_KEYS, MINOR_KEYS } from '@/lib/chordpro';
+import { parseChordPro, transposeToKey, songToHtml } from '@/lib/chordpro';
+import { MAJOR_KEYS, MINOR_KEYS } from '@/lib/keys';
 import { slugify } from '@/lib/slug';
 import { createSong, updateSong, type ActionState } from '@/app/(admin)/admin/songs/actions';
 import type { Song } from '@/types/song';
@@ -54,6 +55,21 @@ export function SongForm({ song }: SongFormProps) {
   // Controlled state for live preview
   const [chordpro, setChordpro] = useState(song?.lyrics_chordpro ?? '');
   const [previewKey, setPreviewKey] = useState(song?.original_key ?? '');
+
+  const previewHtml = useMemo(() => {
+    if (!chordpro.trim()) return '';
+    try {
+      const parsed = parseChordPro(chordpro);
+      const transposed = previewKey ? transposeToKey(parsed, previewKey) : parsed;
+      return songToHtml(transposed);
+    } catch {
+      const escaped = chordpro
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      return `<pre class="text-sm text-muted-foreground whitespace-pre-wrap">${escaped}</pre>`;
+    }
+  }, [chordpro, previewKey]);
 
   // Slug auto-generation
   const [slug, setSlug] = useState(song?.slug ?? '');
@@ -327,8 +343,8 @@ export function SongForm({ song }: SongFormProps) {
           )}
         </div>
         <div className="rounded-xl border border-border bg-card min-h-48 p-4 overflow-auto max-h-[80vh]">
-          {chordpro.trim() ? (
-            <ChordSheet chordpro={chordpro} originalKey={previewKey || null} />
+          {previewHtml ? (
+            <ChordSheet html={previewHtml} />
           ) : (
             <p className="text-sm text-muted-foreground italic">
               Start typing ChordPro lyrics to see the preview…

@@ -4,7 +4,7 @@ import { useState, Suspense } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { RotateCcw, PlayCircle, PauseCircle } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
-import { nextKey } from '@/lib/chordpro';
+import { nextKey } from '@/lib/keys';
 import { cn } from '@/lib/utils';
 import { StageMode, useStageMode } from '@/components/StageMode';
 import { AutoScroll } from '@/components/AutoScroll';

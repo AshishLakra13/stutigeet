@@ -1,28 +1,15 @@
 import { TopHeader } from '@/components/TopHeader';
 import { BottomNav } from '@/components/BottomNav';
-import { CommandPalette } from '@/components/CommandPalette';
-import { getAllSongs } from '@/lib/songs';
+import { CommandPaletteTrigger } from '@/components/CommandPaletteTrigger';
+import { getSongsForSearch } from '@/lib/songs';
 
 export default async function MainLayout({ children }: { children: React.ReactNode }) {
-  const songs = await getAllSongs();
-
-  const searchRecords = songs.map(
-    ({ id, slug, title_hi, title_en, original_key, bpm, themes, artist_original }) => ({
-      id,
-      slug,
-      title_hi,
-      title_en,
-      original_key,
-      bpm,
-      themes,
-      artist_original,
-    }),
-  );
+  const songs = await getSongsForSearch();
 
   return (
     <div className="flex flex-col min-h-screen">
       <TopHeader />
-      <CommandPalette songs={searchRecords} />
+      <CommandPaletteTrigger songs={songs} />
       <div className="flex-1 pb-20 md:pb-0">{children}</div>
       <BottomNav />
     </div>

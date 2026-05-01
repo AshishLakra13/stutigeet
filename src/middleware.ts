@@ -10,42 +10,56 @@ export async function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-nonce', nonce);
 
-  const { supabaseResponse, user, supabase } = await updateSession(
-    request,
-    requestHeaders,
-  );
-
   const { pathname } = request.nextUrl;
 
-  // Gate all /admin/* routes
-  if (pathname.startsWith('/admin')) {
-    if (!user) {
-      const loginUrl = request.nextUrl.clone();
-      loginUrl.pathname = '/login';
-      loginUrl.searchParams.set('next', pathname);
-      const redirect = NextResponse.redirect(loginUrl);
-      redirect.headers.set('Content-Security-Policy', csp);
-      return redirect;
+  // Only hit Supabase for routes that actually need auth.
+  // Public routes (/, /songs, /songs/[slug], /sets, …) skip the round trip.
+  const needsAuth =
+    pathname.startsWith('/admin') ||
+    pathname.startsWith('/auth') ||
+    pathname === '/login';
+
+  if (needsAuth) {
+    const { supabaseResponse, user, supabase } = await updateSession(
+      request,
+      requestHeaders,
+    );
+
+    // Gate all /admin/* routes
+    if (pathname.startsWith('/admin')) {
+      if (!user) {
+        const loginUrl = request.nextUrl.clone();
+        loginUrl.pathname = '/login';
+        loginUrl.searchParams.set('next', pathname);
+        const redirect = NextResponse.redirect(loginUrl);
+        redirect.headers.set('Content-Security-Policy', csp);
+        return redirect;
+      }
+
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .maybeSingle();
+
+      if (profile?.role !== 'admin') {
+        const homeUrl = request.nextUrl.clone();
+        homeUrl.pathname = '/';
+        homeUrl.searchParams.delete('next');
+        const redirect = NextResponse.redirect(homeUrl);
+        redirect.headers.set('Content-Security-Policy', csp);
+        return redirect;
+      }
     }
 
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .maybeSingle();
-
-    if (profile?.role !== 'admin') {
-      const homeUrl = request.nextUrl.clone();
-      homeUrl.pathname = '/';
-      homeUrl.searchParams.delete('next');
-      const redirect = NextResponse.redirect(homeUrl);
-      redirect.headers.set('Content-Security-Policy', csp);
-      return redirect;
-    }
+    supabaseResponse.headers.set('Content-Security-Policy', csp);
+    return supabaseResponse;
   }
 
-  supabaseResponse.headers.set('Content-Security-Policy', csp);
-  return supabaseResponse;
+  // Public path: emit CSP + nonce without any Supabase round trip.
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
+  response.headers.set('Content-Security-Policy', csp);
+  return response;
 }
 
 export const config = {

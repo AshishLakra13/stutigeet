@@ -3,7 +3,7 @@
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { Minus, Plus, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { nextKey } from '@/lib/chordpro';
+import { nextKey } from '@/lib/keys';
 import { cn } from '@/lib/utils';
 
 type TransposeControlsProps = {

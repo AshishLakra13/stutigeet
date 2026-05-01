@@ -1,11 +1,11 @@
 import { ChevronDown } from 'lucide-react';
-import { getAllSongs } from '@/lib/songs';
+import { getRecentSongs } from '@/lib/songs';
 import { SongCard } from '@/components/SongCard';
 import { BrandMark } from '@/components/BrandMark';
 import { VerseCallout } from '@/components/VerseCallout';
 
 export default async function HomePage() {
-  const songs = await getAllSongs();
+  const songs = await getRecentSongs(20);
 
   return (
     <main className="mx-auto max-w-4xl px-4">

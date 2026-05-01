@@ -12,6 +12,16 @@ export async function getAllSongs(): Promise<Song[]> {
   return (data ?? []) as Song[];
 }
 
+export async function getSongsForSearch(): Promise<Pick<Song, 'id' | 'slug' | 'title_hi' | 'title_en' | 'original_key' | 'bpm' | 'themes' | 'artist_original'>[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('songs')
+    .select('id, slug, title_hi, title_en, original_key, bpm, themes, artist_original')
+    .order('created_at', { ascending: false });
+  if (error) throw new Error(`getSongsForSearch: ${error.message}`);
+  return (data ?? []) as Pick<Song, 'id' | 'slug' | 'title_hi' | 'title_en' | 'original_key' | 'bpm' | 'themes' | 'artist_original'>[];
+}
+
 export async function getSongBySlug(slug: string): Promise<Song | null> {
   const supabase = await createClient();
   const { data, error } = await supabase
@@ -23,15 +33,15 @@ export async function getSongBySlug(slug: string): Promise<Song | null> {
   return (data as Song | null) ?? null;
 }
 
-export async function getRecentSongs(limit = 5): Promise<Song[]> {
+export async function getRecentSongs(limit = 20): Promise<Pick<Song, 'id' | 'slug' | 'title_hi' | 'title_en' | 'original_key' | 'bpm' | 'themes' | 'created_at'>[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from('songs')
-    .select('*')
+    .select('id, slug, title_hi, title_en, original_key, bpm, themes, created_at')
     .order('created_at', { ascending: false })
     .limit(limit);
   if (error) throw new Error(`Failed to fetch recent songs: ${error.message}`);
-  return (data ?? []) as Song[];
+  return (data ?? []) as Pick<Song, 'id' | 'slug' | 'title_hi' | 'title_en' | 'original_key' | 'bpm' | 'themes' | 'created_at'>[];
 }
 
 export async function getSongCount(): Promise<number> {

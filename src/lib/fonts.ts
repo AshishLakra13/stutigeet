@@ -11,10 +11,11 @@ export const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
+  weight: ['400', '500'],
 });
 
 export const devanagari = Noto_Sans_Devanagari({
-  subsets: ['devanagari', 'latin'],
+  subsets: ['devanagari'],
   display: 'swap',
   variable: '--font-devanagari',
   weight: ['400', '500', '700'],

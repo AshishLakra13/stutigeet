@@ -1,9 +1,8 @@
 // Stuti Geet — Service Worker
-// Strategy: Cache-first for static assets, Network-first for pages/API.
-// This is a minimal offline shell — songs render server-side so a full
-// offline cache would require caching each song page individually.
+// Strategy: Cache-first for static assets, stale-while-revalidate for HTML navigation,
+// network-first for everything else.
 
-const CACHE_NAME = 'stuti-geet-v2';
+const CACHE_NAME = 'stuti-geet-v3';
 
 // Assets to pre-cache on install (shell)
 const PRECACHE_URLS = [
@@ -59,6 +58,13 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // HTML navigation requests: stale-while-revalidate
+  // Return cached page immediately and refresh in background — feels instant on slow networks.
+  if (request.mode === 'navigate') {
+    event.respondWith(staleWhileRevalidate(request));
+    return;
+  }
+
   // Everything else: network-first with cache fallback
   event.respondWith(
     fetch(request)
@@ -72,6 +78,18 @@ self.addEventListener('fetch', (event) => {
       .catch(() => caches.match(request)),
   );
 });
+
+async function staleWhileRevalidate(request) {
+  const cache = await caches.open(CACHE_NAME);
+  const cached = await cache.match(request);
+
+  const networkPromise = fetch(request).then((response) => {
+    if (response.ok) cache.put(request, response.clone());
+    return response;
+  }).catch(() => undefined);
+
+  return cached ?? await networkPromise;
+}
 
 async function fetchAndCache(request) {
   const cache = await caches.open(CACHE_NAME);

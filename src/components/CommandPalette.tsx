@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { Music } from 'lucide-react';
 import {
@@ -16,10 +16,11 @@ import type { SongSearchRecord } from '@/lib/search';
 
 type CommandPaletteProps = {
   songs: SongSearchRecord[];
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 };
 
-export function CommandPalette({ songs }: CommandPaletteProps) {
-  const [open, setOpen] = useState(false);
+export function CommandPalette({ songs, open, onOpenChange }: CommandPaletteProps) {
   const [query, setQuery] = useState('');
   const router = useRouter();
 
@@ -30,27 +31,8 @@ export function CommandPalette({ songs }: CommandPaletteProps) {
     [fuse, query, songs],
   );
 
-  // Keyboard shortcut: Cmd+K / Ctrl+K
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        setOpen((prev) => !prev);
-      }
-    }
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  // Open via mobile search button
-  useEffect(() => {
-    function handleOpen() { setOpen(true); }
-    document.addEventListener('command-palette:open', handleOpen);
-    return () => document.removeEventListener('command-palette:open', handleOpen);
-  }, []);
-
   function handleSelect(slug: string) {
-    setOpen(false);
+    onOpenChange(false);
     setQuery('');
     router.push(`/songs/${slug}`);
   }
@@ -59,7 +41,7 @@ export function CommandPalette({ songs }: CommandPaletteProps) {
     <CommandDialog
       open={open}
       onOpenChange={(isOpen) => {
-        setOpen(isOpen);
+        onOpenChange(isOpen);
         if (!isOpen) setQuery('');
       }}
       title="Search songs"

@@ -1,6 +1,6 @@
 import { ChordProParser, HtmlDivFormatter } from 'chordsheetjs';
 import type { Song } from 'chordsheetjs';
-import DOMPurify from 'isomorphic-dompurify';
+import sanitizeHtml from 'sanitize-html';
 
 export function parseChordPro(text: string): Song {
   return new ChordProParser().parse(text);
@@ -12,9 +12,9 @@ export function transposeToKey(song: Song, targetKey: string): Song {
 
 export function songToHtml(song: Song): string {
   const raw = new HtmlDivFormatter().format(song);
-  return DOMPurify.sanitize(raw, {
-    ALLOWED_TAGS: ['h1', 'h2', 'h3', 'div', 'span', 'br', 'p', 'b', 'i', 'em', 'strong', 'table', 'tr', 'td', 'tbody', 'thead'],
-    ALLOWED_ATTR: ['class'],
+  return sanitizeHtml(raw, {
+    allowedTags: ['h1', 'h2', 'h3', 'div', 'span', 'br', 'p', 'b', 'i', 'em', 'strong', 'table', 'tr', 'td', 'tbody', 'thead'],
+    allowedAttributes: { '*': ['class'] },
   });
 }
 

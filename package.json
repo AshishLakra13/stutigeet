@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "og:generate": "node scripts/generate-og-image.mjs"
+    "icons:generate": "node scripts/generate-icons.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",

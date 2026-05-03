@@ -71,6 +71,24 @@ export async function middleware(request: NextRequest) {
       }
     }
 
+    // Routes live under src/app/[locale]/... With localePrefix: 'as-needed',
+    // a no-prefix URL like /admin must be internally rewritten to /<defaultLocale>/admin
+    // so Next.js can resolve the [locale] segment. We bypass intlMiddleware in this
+    // branch (it doesn't carry Supabase cookies), so handle the rewrite ourselves.
+    const hasLocalePrefix = /^\/(hi|en)(\/|$)/.test(pathname);
+    if (!hasLocalePrefix) {
+      const rewriteUrl = request.nextUrl.clone();
+      rewriteUrl.pathname = `/${routing.defaultLocale}${pathname}`;
+      const rewriteRes = NextResponse.rewrite(rewriteUrl, {
+        request: { headers: requestHeaders },
+      });
+      supabaseResponse.cookies.getAll().forEach((c) => {
+        rewriteRes.cookies.set(c);
+      });
+      rewriteRes.headers.set('Content-Security-Policy', csp);
+      return rewriteRes;
+    }
+
     supabaseResponse.headers.set('Content-Security-Policy', csp);
     return supabaseResponse;
   }
